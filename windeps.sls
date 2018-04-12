@@ -38,7 +38,7 @@ extend:
 {% else %}
   python2:
     pkg.latest:
-      - extra_install_flags: /i $file /qb ADDLOCAL=DefaultFeature,SharedCRT,Extensions,pip_feature,PrependPath -Wait -NoNewWindow -PassThru
+      - extra_install_flags: ADDLOCAL=DefaultFeature,SharedCRT,Extensions,pip_feature,PrependPath -Wait -NoNewWindow -PassThru
       - require:
         - win-pkg-refresh
 {% endif %}
