@@ -68,8 +68,6 @@ def install(*args, **kwargs):
     Winrepo install that can install packages without a win_repo, the package
     definition can passed to install via a pkg_data keyword argument.
     '''
-    if 'pkg_data' in kwargs:
-
     _orig_get_package_info = salt.modules.win_pkg._get_package_info
     pkg_install = namespaced_function(salt.modules.win_pkg.install, globals())
     try:
