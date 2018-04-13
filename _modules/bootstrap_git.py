@@ -83,7 +83,7 @@ def install(*args, **kwargs):
     pkg_install = namespaced_function(salt.modules.win_pkg.install, globals())
     try:
         _get_package_info = functools.partial(
-            _get_package_info,
+            _get_package_info_partial,
             pkg_data=kwargs.get('win_repo', {}),
             orig_func=_orig_get_package_info,
         )
