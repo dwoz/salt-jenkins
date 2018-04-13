@@ -4,7 +4,7 @@ bootstrap_git:
     - args:
       - git
     - kwargs:
-        pkg_data:
+        win_repo:
           git:
             2.16.2:
               full_name: Git version 2.16.2

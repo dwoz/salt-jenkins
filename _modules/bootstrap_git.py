@@ -48,34 +48,45 @@ def list_pkgs(*args, **kwargs):
     return {}
 
 
-def _get_package_info(name, **kwargs):
+def _get_package_info_partial(name, **kwargs):
     '''
     Define package info via module level PKG_DATA attribute or via a pkg_data
     keyword argument passed to install.
     '''
+    kw_win_repo = {}
+    # Get a win_repo dict from the kwargs if passed, remove the key from the
+    # kwargs in case we pass them to the original get_package_info function.
+    if 'win_repo' in kwargs:
+        kw_win_repo = kwargs.pop('win_repo')
+    # If the original function is also passed, get pkg_data from it.
     if 'orig_func' in kwargs:
-        pkg_data = kwargs['orig_func'](name, kwargs)
+        orig_func = kwargs.pop('orig_func')
+        pkg_data = orig_func(name, **kwargs)
         pkg_data.update(PKG_DATA)
     else:
         pkg_data = PKG_DATA
-    if 'pkg_data' in kwargs:
-        pkg_data.update(kwargs['pkg_data'])
+    pkg_data.update(kw_win_repo)
     return pkg_data[name]
+
+
+def _get_package_info(name, **kwargs):
+    raise NotImplimentedError("STUBBED")
 
 
 def install(*args, **kwargs):
     '''
     Winrepo install that can install packages without a win_repo, the package
-    definition can passed to install via a pkg_data keyword argument.
+    definition can passed to install via a win_repo keyword argument.
     '''
+    global _get_package_info
     _orig_get_package_info = salt.modules.win_pkg._get_package_info
     pkg_install = namespaced_function(salt.modules.win_pkg.install, globals())
     try:
-        salt.modules.win_pkg.get_package_info = functools.partial(
+        _get_package_info = functools.partial(
             _get_package_info,
-            pkg_data=kwargs.get('pkg_data', {}),
+            pkg_data=kwargs.get('win_repo', {}),
             orig_func=_orig_get_package_info,
         )
         return pkg_install(*args, **kwargs)
     finally:
-        salt.modules.win_pkg._get_package_info = _orig_get_package_info
+        _get_package_info = _orig_get_package_info
