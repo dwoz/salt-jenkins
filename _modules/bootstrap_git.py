@@ -70,7 +70,7 @@ def _get_package_info_partial(name, **kwargs):
 
 
 def _get_package_info(name, **kwargs):
-    raise NotImplimentedError("STUBBED")
+    raise NotImplementedError("STUBBED")
 
 
 def install(*args, **kwargs):
