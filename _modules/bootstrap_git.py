@@ -22,7 +22,7 @@ NAMESPACE_FUNCS = [
 for name in dir(salt.modules.win_pkg):
     attr = getattr(salt.modules.win_pkg, name)
     if isinstance(attr, types.FunctionType):
-        if name in NAMESPACE_FUCNS:
+        if name in NAMESPACE_FUNCS:
             globals()[name] = salt.utils.namespaced_function(attr, globals())
 
 
