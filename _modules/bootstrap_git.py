@@ -22,6 +22,8 @@ for name in dir(salt.modules.win_pkg):
             continue
         if attr == 'list_pkgs':
             continue
+        if attr == '_get_package_info':
+            continue
         if attr in globals():
             continue
         globals()[name] = salt.utils.namespaced_function(attr, globals())
@@ -85,7 +87,7 @@ def install(*args, **kwargs):
         _get_package_info = functools.partial(
             _get_package_info_partial,
             win_repo=kwargs.get('win_repo', {}),
-            orig_func=_orig_get_package_info,
+            orig_func=namespaced_function(_orig_get_package_info, globals()),
         )
         return pkg_install(*args, **kwargs)
     finally:
