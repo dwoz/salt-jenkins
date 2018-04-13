@@ -13,8 +13,8 @@ include:
    - python.ca-certificates
 {%- endif %}
 
+git:
 {% if grains['os_family'] == 'Windows' %}
-bootstrap_git:
   module.run:
     - name: winrepo_pkg.install
     - args:
@@ -36,7 +36,6 @@ bootstrap_git:
               locale: en_US
               reboot: False
 {% else %}
-git:
   pkg.installed:
     - name: {{ git }}
     - aggregate: True
