@@ -11,22 +11,19 @@ from salt.ext.six.moves.urllib.parse import urlparse as _urlparse
 
 
 PKG_DATA = {}
+NAMESPACE_FUNCS = [
+	'_get_repo_details',
+	'_get_msiexec',
+	'_get_latest_pkg_version',
+	'get_repo_data',
+]
 
 
 for name in dir(salt.modules.win_pkg):
     attr = getattr(salt.modules.win_pkg, name)
     if isinstance(attr, types.FunctionType):
-        if attr == 'install':
-            continue
-        if attr == 'refresh_db':
-            continue
-        if attr == 'list_pkgs':
-            continue
-        if attr == '_get_package_info':
-            continue
-        if attr in globals():
-            continue
-        globals()[name] = salt.utils.namespaced_function(attr, globals())
+        if name in NAMESPACE_FUCNS:
+            globals()[name] = salt.utils.namespaced_function(attr, globals())
 
 
 def __virtual__():
