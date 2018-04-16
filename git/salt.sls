@@ -5,6 +5,13 @@
 {%- set os_major_release = salt['grains.get']('osmajorrelease', 0)|int %}
 {% set on_docker = salt['grains.get']('virtual_subtype', '') in ('Docker',) %}
 
+{%- if os_family == 'Windows' %}
+stop-minion:
+  service.dead:
+    - name: salt-minion
+    - enable: False
+{%- endif %}
+
 {%- if os_family == 'RedHat' and os_major_release == 5 %}
   {%- set on_redhat_5 = True %}
 {%- else %}
