@@ -21,7 +21,7 @@
   {%- set on_arch = False %}
 {%- endif %}
 
-{% if os in ('Windows') %}
+{% if os in ('Windows') and not pillar.get('from_bootstrap', False) %}
   {% set install_method = 'pip' %}
 {% else %}
   {% set install_method = 'pkg' %}
