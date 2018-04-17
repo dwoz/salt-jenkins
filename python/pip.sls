@@ -74,7 +74,7 @@ force-sync-all:
 
 pip-install:
   cmd.run:
-    - name: curl -L 'https://bootstrap.pypa.io/get-pip.py' -o get-pip.py && {{ get_pip }} 'pip<=9.0.1'
+    - name: curl -L 'https://bootstrap.pypa.io/get-pip.py' -o get-pip.py && {{ get_pip }} 'pip<=9.0.2'
     - cwd: /
     - reload_modules: True
     {%- if os != 'Fedora' %}
@@ -108,7 +108,7 @@ upgrade-installed-pip:
 {%- if pillar.get('py3', False) and os != 'Windows' %}
 pip2-install:
   cmd.run:
-    - name: curl -L 'https://bootstrap.pypa.io/get-pip.py' -o get-pip.py && python2 get-pip.py 'pip<=9.0.1'
+    - name: curl -L 'https://bootstrap.pypa.io/get-pip.py' -o get-pip.py && python2 get-pip.py 'pip<=9.0.2'
     - cwd: /
     - reload_modules: True
     {%- if os != 'Fedora' %}
