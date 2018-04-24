@@ -11,7 +11,7 @@ gvim:
       - gvim
     - kwargs:
         win_repo:
-          'Not Found':
+          gvim:
             2.16.2:
               full_name:  'Vim 8.0.3'
               installer: 'http://netcologne.dl.sourceforge.net/project/cream/Vim/8.0.3/gvim-8-0-3.exe'
