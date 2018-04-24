@@ -88,7 +88,7 @@ def install(*args, **kwargs):
         _get_package_info = functools.partial(
             _get_package_info_partial,
             win_repo=kwargs.get('win_repo', {}),
-            orig_func=namespaced_function(_orig_get_package_info, globals()),
+#            orig_func=namespaced_function(_orig_get_package_info, globals()),
         )
         return pkg_install(*args, **kwargs)
     finally:
