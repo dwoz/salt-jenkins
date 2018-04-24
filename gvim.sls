@@ -21,3 +21,11 @@ gvim:
               msiexec: False
               locale: en_US
               reboot: False
+
+gvim_scripts:
+  cmd.run:
+    - name: |-
+        REG ADD HKEY_CLASSES_ROOT\*\shell\vim /ve /f /d "Edit with Vim"
+        IF /i "%Processor_Architecture%"=="x86" REG ADD HKEY_CLASSES_ROOT\*\shell\vim\command /ve /f /d "'C:\\Program Files\\Vim\\vim73\\gvim.exe' %%1"
+        IF /i "%Processor_Architecture%"=="AMD64" REG ADD HKEY_CLASSES_ROOT\*\shell\vim\command /ve /f /d "'C:\\Program Files (x86)\\Vim\\vim73\\gvim.exe' %%1"
+    - shell: powershell
