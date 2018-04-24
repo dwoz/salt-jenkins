@@ -1,3 +1,9 @@
+# just 32-bit x86 installer available
+{% if grains['cpuarch'] == 'AMD64' %}
+    {% set PROGRAM_FILES = "%ProgramFiles(x86)%" %}
+{% else %}
+    {% set PROGRAM_FILES = "%ProgramFiles%" %}
+{% endif %}
 gvim:
   module.run:
     - name: winrepo_pkg.install
