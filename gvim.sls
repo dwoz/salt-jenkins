@@ -22,3 +22,11 @@ gvim:
               msiexec: False
               locale: en_US
               reboot: False
+
+gvim_env:
+  cmd.run:
+    - name: |>
+      $theCurrentPath=(Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
+      $theUpdatedPath=$theCurrentPath+';C:\Program Files (x86)\vim\vim80'
+      Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH –Value $theUpdatedPath
+    - shell: powershell
