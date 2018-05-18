@@ -17,6 +17,8 @@ provisioner:
     $NewPath= $OldPath + ';' + $AddedLocation
     Set-ItemProperty -Path "$Reg" -Name PATH -Value $NewPath
   is_file_root: true
+  salt_bootstrap_url: https://raw.githubusercontent.com/saltstack/salt-bootstrap/develop/bootstrap-salt.ps1
+  salt_bootstrap_options: '-version 2017.7.4'
   salt_copy_filter:
     - .bundle
     - .git
