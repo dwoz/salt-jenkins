@@ -55,6 +55,9 @@ stop-minion:
 {% set base_reqs = ['Jinja2', 'msgpack-python>0.3', 'PyYAML', 'MarkupSafe', 'requests>=1.0.0', 'tornado%s'|format(salt.pillar.get('tornado:version', '<5.0.0'))] %}
 
 include:
+  {%- if grains['os'] in ('Windows',) %}
+  - python.pip
+  {%- endif %}
   {%- if grains.get('kernel') == 'Linux' %}
   - man
   {%- endif %}
