@@ -9,7 +9,6 @@ driver:
 
 provisioner:
   name: salt_solo
-  salt_version: 2017.7.4
   init_environment: |
     Clear-Host
     $AddedLocation ="c:\salt"
