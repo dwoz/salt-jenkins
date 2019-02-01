@@ -10,6 +10,7 @@
 # Import python libs
 from __future__ import absolute_import
 import types
+import logging
 
 # Import salt libs
 from salt.utils.functools import namespaced_function
@@ -25,6 +26,7 @@ pip_state_installed = namespaced_function(pip_state_installed, globals())  # pyl
 # Let's namespace all other functions from the pip_state module
 for name in dir(salt.states.pip_state):
     attr = getattr(salt.states.pip_state, name)
+    log.error("Namespace pip func %s", name)
     if isinstance(attr, types.FunctionType):
         if attr in ('installed',):
             continue

@@ -12,6 +12,7 @@ from __future__ import absolute_import
 import os
 import types
 import pkg_resources
+import logging
 
 # Import salt libs
 from salt.utils.functools import namespaced_function
@@ -20,12 +21,15 @@ import salt.states.pip_state
 from salt.states.pip_state import *  # pylint: disable=wildcard-import,unused-wildcard-import
 from salt.states.pip_state import installed as pip_state_installed
 
+log = logging.getLogger()
+
 # Let's namespace the pip_state_installed function
 pip_state_installed = namespaced_function(pip_state_installed, globals())  # pylint: disable=invalid-name
 
 # Let's namespace all other functions from the pip_state module
 for name in dir(salt.states.pip_state):
     attr = getattr(salt.states.pip_state, name)
+    log.error("Namespace pip func %s", name)
     if isinstance(attr, types.FunctionType):
         if attr in ('installed',):
             continue
