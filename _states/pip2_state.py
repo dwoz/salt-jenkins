@@ -27,9 +27,9 @@ _skip_funcs = (
 )
 def _namespace_module(module, skip_funcs=_skip_funcs):
     for name in dir(module):
-        if name in skip_fucs:
+        if name in skip_funcs:
             continue
-        attr = getattr(salt.states.pip_state, name)
+        attr = getattr(module, name)
         log.error("Namespace pip func %s", name)
         if isinstance(attr, types.FunctionType):
             if attr in ('installed',):
