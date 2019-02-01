@@ -21,30 +21,31 @@ import salt.states.pip_state
 from salt.states.pip_state import *  # pylint: disable=wildcard-import,unused-wildcard-import
 from salt.states.pip_state import installed as pip_state_installed
 
+from ._util import _namespace_module
+
+__virtualname__ = 'pip'
+
 log = logging.getLogger()
+_skip_funcs = (
+    '_check_if_installed',
+    '_check_version_format',
+)
+def _namespace_module(module, skip_funcs=_skip_funcs):
+    for name in dir(module):
+        if name in skip_fucs:
+            continue
+        attr = getattr(salt.states.pip_state, name)
+        log.error("Namespace pip func %s", name)
+        if isinstance(attr, types.FunctionType):
+            if attr in ('installed',):
+                continue
+            if attr in globals():
+                continue
+            globals()[name] = namespaced_function(attr, globals())
 
 # Let's namespace the pip_state_installed function
 pip_state_installed = namespaced_function(pip_state_installed, globals())  # pylint: disable=invalid-name
-
-SKIP_FUNCS = (
-    '_check_if_installed',
-)
-
-# Let's namespace all other functions from the pip_state module
-for name in dir(salt.states.pip_state):
-    if name in SKIP_FUNCS:
-        continue
-    attr = getattr(salt.states.pip_state, name)
-    log.error("Namespace pip func %s", name)
-    if isinstance(attr, types.FunctionType):
-        if attr in ('installed',):
-            continue
-        if attr in globals():
-            continue
-        globals()[name] = namespaced_function(attr, globals())
-
-
-__virtualname__ = 'pip'
+_namespace_module(salt.states.pip_state)
 
 
 def __virtual__():
