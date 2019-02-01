@@ -47,9 +47,9 @@ pip_state_installed = namespaced_function(pip_state_installed, globals())  # pyl
 uptodate = namespaced_function(salt.states.pip_state.uptodate, globals())  # pylint: disable=invalid-name
 removed = namespaced_function(salt.states.pip_state.removed, globals())  # pylint: disable=invalid-name
 _check_if_installed = namespaced_function(salt.states.pip_state._check_if_installed, globals())  # pylint: disable=invalid-name
-#pip_state_installed = namespaced_function(salt.states.pip_state._check_pkg_version_format, globals())  # pylint: disable=invalid-name
-#pip_state_installed = namespaced_function(salt.states.pip_state._fulfills_version_spec, globals())  # pylint: disable=invalid-name
-#pip_state_installed = namespaced_function(salt.states.pip_state._find_key, globals())  # pylint: disable=invalid-name
+_check_pkg_version_format = namespaced_function(salt.states.pip_state._check_pkg_version_format, globals())  # pylint: disable=invalid-name
+_fulfills_version_spec = namespaced_function(salt.states.pip_state._fulfills_version_spec, globals())  # pylint: disable=invalid-name
+_find_key = namespaced_function(salt.states.pip_state._find_key, globals())  # pylint: disable=invalid-name
 #_namespace_module(salt.states.pip_state)
 
 
