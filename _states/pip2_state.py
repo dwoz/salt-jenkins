@@ -17,31 +17,21 @@ from salt.utils.functools import namespaced_function
 import salt.states.pip_state
 from salt.states.pip_state import *  # pylint: disable=wildcard-import,unused-wildcard-import
 from salt.states.pip_state import installed as pip_state_installed
+from salt.states.pip_state import _from_line  # pylint: disable=wildcard-import,unused-wildcard-import
+from salt.states.pip_state import _pep440_version_cmp  # pylint: disable=wildcard-import,unused-wildcard-import
 
 __virtualname__ = 'pip2'
 
 log = logging.getLogger()
-_skip_funcs = (
-    '_check_if_installed',
-    '_check_version_format',
-    '_from_line',
-)
-def _namespace_module(module, skip_funcs=_skip_funcs):
-    for name in dir(module):
-        if name in skip_funcs:
-            continue
-        attr = getattr(module, name)
-        log.error("Namespace pip func %s", name)
-        if isinstance(attr, types.FunctionType):
-            if attr in ('installed',):
-                continue
-            if attr in globals():
-                continue
-            globals()[name] = namespaced_function(attr, globals())
 
 # Let's namespace the pip_state_installed function
 pip_state_installed = namespaced_function(pip_state_installed, globals())  # pylint: disable=invalid-name
-_namespace_module(salt.states.pip_state)
+uptodate = namespaced_function(salt.states.pip_state.uptodate, globals())  # pylint: disable=invalid-name
+removed = namespaced_function(salt.states.pip_state.removed, globals())  # pylint: disable=invalid-name
+_check_if_installed = namespaced_function(salt.states.pip_state._check_if_installed, globals())  # pylint: disable=invalid-name
+_check_pkg_version_format = namespaced_function(salt.states.pip_state._check_pkg_version_format, globals())  # pylint: disable=invalid-name
+_fulfills_version_spec = namespaced_function(salt.states.pip_state._fulfills_version_spec, globals())  # pylint: disable=invalid-name
+_find_key = namespaced_function(salt.states.pip_state._find_key, globals())  # pylint: disable=invalid-name
 
 def __virtual__():
     if 'pip.list' in __salt__:
