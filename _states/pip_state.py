@@ -26,8 +26,14 @@ log = logging.getLogger()
 # Let's namespace the pip_state_installed function
 pip_state_installed = namespaced_function(pip_state_installed, globals())  # pylint: disable=invalid-name
 
+SKIP_FUNCS = (
+    '_check_if_installed',
+)
+
 # Let's namespace all other functions from the pip_state module
 for name in dir(salt.states.pip_state):
+    if name in SKIP_FUNCS:
+        continue
     attr = getattr(salt.states.pip_state, name)
     log.error("Namespace pip func %s", name)
     if isinstance(attr, types.FunctionType):
