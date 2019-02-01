@@ -27,6 +27,7 @@ log = logging.getLogger()
 _skip_funcs = (
     '_check_if_installed',
     '_check_version_format',
+    '_from_line',
 )
 def _namespace_module(module, skip_funcs=_skip_funcs):
     for name in dir(module):
