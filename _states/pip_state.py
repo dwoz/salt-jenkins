@@ -20,6 +20,7 @@ import salt.utils.args
 import salt.states.pip_state
 from salt.states.pip_state import *  # pylint: disable=wildcard-import,unused-wildcard-import
 from salt.states.pip_state import installed as pip_state_installed
+from salt.states.pip_state import _from_line  # pylint: disable=wildcard-import,unused-wildcard-import
 
 __virtualname__ = 'pip'
 
