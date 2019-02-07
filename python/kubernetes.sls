@@ -4,6 +4,10 @@ include:
 {%- endif %}
 
 kubernetes:
+  {%- if grains['os'] == 'CentOS' and grains['osmajorrelease']|int >= 7 %}
+  pkg.installed:
+    - name: python2-kubernetes
+  {%- else %}
   pip.installed:
     - name: kubernetes < 4.0
     - bin_env: {{ salt['config.get']('virtualenv_path', '') }}
@@ -12,3 +16,4 @@ kubernetes:
     - require:
       - cmd: pip-install
     {%- endif %}
+  {%- endif %}
