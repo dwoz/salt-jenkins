@@ -11,6 +11,10 @@ include:
 
 # Can't use "docker" as ID declaration, it's being used in salt://docker.sls
 docker_py:
+  {%- if grains['os'] == 'CentOS' and grains['osmajorrelease']|int >= 7 %}
+  pkg.installed:
+    - name: python-docker-py
+  {%- else %}
   pip.installed:
     - name: {{docker}}
     - bin_env: {{ salt.config.get('virtualenv_path', '') }}
@@ -19,3 +23,4 @@ docker_py:
     - require:
       - cmd: pip-install
     {%- endif %}
+  {%- endif %}
