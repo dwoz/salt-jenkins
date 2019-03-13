@@ -169,7 +169,7 @@ def list_(prefix=None,
           cwd=None,
           env_vars=None,
           **kwargs):
-    log.error('custom pip module // pip.list called // kwargs: %r', kwargs)
+    log.error('custom pip module // pip.list called // kwargs: %r %r', bin_env, kwargs)
     pip_binary = get_pip_bin(bin_env)
     if isinstance(pip_binary, list):
         pip_binary = pip_binary[0]
@@ -221,7 +221,7 @@ def freeze(bin_env=None,
 
 
 def cache_pip_version(pip_binary, cwd=None):
-    log.error('custom pip module // pip.cache_pip_version called %r', kwargs)
+    log.error('custom pip module // pip.cache_pip_version called %r', pip_binary)
     contextkey = 'pip.version'
     if pip_binary is not None:
         contextkey = '{}.{}'.format(contextkey, pip_binary)
