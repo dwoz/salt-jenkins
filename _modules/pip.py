@@ -81,6 +81,8 @@ def get_pip_bin(bin_env, pip_bin_name=None):
     executable itself, or from searching conventional filesystem locations
     '''
     log.error('Calling get_pip_bin on custom pip moule. bin_env: %s, pip_bin_name: %s', bin_env, pip_bin_name)
+    if isinstance(bin_env, list):
+        bin_env = bin_env[0]
     if pip_bin_name is None:
         # Always use pip3 if running with pillar="{py3: true}"
         # If running tests on CentOS 6, the Nitrogen and Develop branches run on Python2.7
