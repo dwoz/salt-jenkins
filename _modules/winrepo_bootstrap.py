@@ -11,6 +11,7 @@ import socket
 import ctypes
 import os
 import ipaddress
+import urllib3.util.ssl_
 
 
 class sockaddr(ctypes.Structure):
@@ -77,6 +78,7 @@ def inet_pton(address_family, ip_string):
 if os.name == 'nt':
     socket.inet_pton = inet_pton
     salt.ext.win_inet_pton.inet_pton = inet_pton
+    urllib3.util.ssl_.inet_pton = inet_pton
 
 log = logging.getLogger(__name__)
 __all__ = [
