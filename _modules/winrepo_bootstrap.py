@@ -5,6 +5,7 @@ try:
 except (ImportError, AttributeError):
     from salt.utils import is_windows
 from salt.exceptions import CommandExecutionError
+import salt.ext.win_inet_pton
 import salt.ext.six as six
 import socket
 import ctypes
@@ -75,6 +76,7 @@ def inet_pton(address_family, ip_string):
 # Adding our two functions to the socket library
 if os.name == 'nt':
     socket.inet_pton = inet_pton
+    salt.ext.win_inet_pton.inet_pton = inet_pton
 
 log = logging.getLogger(__name__)
 __all__ = [
