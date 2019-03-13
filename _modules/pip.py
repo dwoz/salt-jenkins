@@ -182,7 +182,10 @@ def list_(prefix=None,
             log.error('*' * 80)
             log.error(repr(pip_binary))
             log.error('*' * 80)
-            cwd = os.path.dirname(pip_binary)
+            if isinstance(pip_binary, list):
+                cwd = os.path.dirname(pip_binary[0])
+            else:
+                cwd = os.path.dirname(pip_binary)
         else:
             cwd = '/'
     cache_pip_version(pip_binary, cwd)
