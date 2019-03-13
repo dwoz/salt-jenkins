@@ -177,9 +177,9 @@ def list_(prefix=None,
     if cwd is None:
         if is_windows():
             # On windows, the cwd must the same directory as the pip executable
-            print('*' * 80)
-            print(repr(pip_binary))
-            print('*' * 80)
+            log.error('*' * 80)
+            log.error(repr(pip_binary))
+            log.error('*' * 80)
             cwd = os.path.dirname(pip_binary)
         else:
             cwd = '/'
