@@ -80,7 +80,7 @@ def get_pip_bin(bin_env, pip_bin_name=None):
     Locate the pip binary, either from `bin_env` as a virtualenv, as the
     executable itself, or from searching conventional filesystem locations
     '''
-    log.debug('Calling get_pip_bin on custom pip moule. bin_env: %s, pip_bin_name: %s', bin_env, pip_bin_name)
+    log.error('Calling get_pip_bin on custom pip moule. bin_env: %s, pip_bin_name: %s', bin_env, pip_bin_name)
     if pip_bin_name is None:
         # Always use pip3 if running with pillar="{py3: true}"
         # If running tests on CentOS 6, the Nitrogen and Develop branches run on Python2.7
@@ -134,7 +134,7 @@ _get_pip_bin = get_pip_bin
 
 
 def install(*args, **kwargs):  # pylint: disable=function-redefined
-    log.debug('custom pip module // pip.install called')
+    log.error('custom pip module // pip.install called %r', kwargs)
     pip_binary = get_pip_bin(kwargs.get('bin_env'))
     if isinstance(pip_binary, list):
         pip_binary = pip_binary[0]
@@ -169,7 +169,7 @@ def list_(prefix=None,
           cwd=None,
           env_vars=None,
           **kwargs):
-    log.debug('custom pip module // pip.list called // kwargs: %s', kwargs)
+    log.error('custom pip module // pip.list called // kwargs: %r', kwargs)
     pip_binary = get_pip_bin(bin_env)
     if isinstance(pip_binary, list):
         pip_binary = pip_binary[0]
@@ -200,7 +200,7 @@ def freeze(bin_env=None,
            use_vt=False,
            env_vars=None,
            **kwargs):
-    log.debug('custom pip module // pip.freeze called')
+    log.error('custom pip module // pip.freeze called %r', kwargs)
     pip_binary = get_pip_bin(bin_env)
     if isinstance(pip_binary, list):
         pip_binary = pip_binary[0]
@@ -221,7 +221,7 @@ def freeze(bin_env=None,
 
 
 def cache_pip_version(pip_binary, cwd=None):
-    log.debug('custom pip module // pip.cache_pip_version called')
+    log.error('custom pip module // pip.cache_pip_version called %r', kwargs)
     contextkey = 'pip.version'
     if pip_binary is not None:
         contextkey = '{}.{}'.format(contextkey, pip_binary)
