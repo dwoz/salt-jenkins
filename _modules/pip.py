@@ -173,8 +173,8 @@ def list_(prefix=None,
     pip_binary = get_pip_bin(bin_env)
     if isinstance(pip_binary, list):
         pip_binary = pip_binary[0]
-        if isinstance(pip_binary, list):
-            pip_binary = pip_binary[0]
+        #if isinstance(pip_binary, list):
+        #    pip_binary = pip_binary[0]
     bin_env = pip_binary
     if cwd is None:
         if is_windows():
@@ -200,7 +200,7 @@ def freeze(bin_env=None,
            use_vt=False,
            env_vars=None,
            **kwargs):
-    log.error('custom pip module // pip.freeze called %r', kwargs)
+    log.error('custom pip module // pip.freeze called %r %r', bin_env, kwargs)
     pip_binary = get_pip_bin(bin_env)
     if isinstance(pip_binary, list):
         pip_binary = pip_binary[0]
