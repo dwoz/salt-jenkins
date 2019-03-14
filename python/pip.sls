@@ -46,8 +46,8 @@
 
 {%- if on_windows %}
   {#- TODO: Maybe run this by powershell `py.exe -3 -c "import sys; print(sys.executable)"` #}
-  {%- set python2 = 'c:\\Python27\\python.exe' %}
-  {%- set python3 = 'c:\\Python35\\python.exe' %}
+  {%- set python2 = 'c:\\\\Python27\\\\python.exe' %}
+  {%- set python3 = 'c:\\\\Python35\\\\python.exe' %}
 {%- else %}
   {%- if on_redhat_6 %}
     {%- set python2 = 'python2.7' %}
@@ -72,7 +72,7 @@ include:
 {%- endif %}
   - noop-placeholder {#- Make sure there's at least an entry in this 'include' statement #}
 
-{%- set get_pip2 = 'cmd /c "{} {} {} \'pip<=9.0.1\'"'.format(python2, get_pip_path, force_reinstall) %}
+{%- set get_pip2 = '{} {} {}'.format(python2, get_pip_path, force_reinstall) %}
 {%- set get_pip3 = '{} {} {}'.format(python3, get_pip_path, force_reinstall) %}
 
 pip-install:
@@ -134,7 +134,7 @@ upgrade-installed-pip3:
 
 pip2-install:
   cmd.run:
-    - name: {{ get_pip2 }}
+    - name: {{ get_pip2 }} 'pip<=9.0.1'
     - cwd: /
     - reload_modules: True
 #    - onlyif:
