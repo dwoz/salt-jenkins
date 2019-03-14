@@ -19,6 +19,7 @@ force-sync-all:
   {%- if not git_binary %}
 include:
   - windeps
+  - python.pip
 
 #git-exists-in-path:
 #  win_path.exists:
