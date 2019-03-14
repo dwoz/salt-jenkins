@@ -18,19 +18,19 @@ force-sync-all:
 {%- if grains['os_family'] == 'Windows' %}
   {%- if not git_binary %}
 include:
-  - windows.repo
+  - windeps
 
-git-exists-in-path:
-  win_path.exists:
-    - name: 'C:\Program Files\Git\cmd'
+#git-exists-in-path:
+#  win_path.exists:
+#    - name: 'C:\Program Files\Git\cmd'
 
-git:
-  pkg.installed:
-    - name: git
-    - refresh_modules: True
-    - require:
-      - git-exists-in-path
-      - win-pkg-refresh
+#git:
+#  pkg.installed:
+#    - name: git
+#    - refresh_modules: True
+#    - require:
+#      - git-exists-in-path
+#      - win-pkg-refresh
   {%- else %}
 git:
   test.show_notification:
