@@ -3,8 +3,7 @@
 {%- set os_major_release = salt['grains.get']('osmajorrelease', 0)|int %}
 {%- set os = salt['grains.get']('os', '') %}
 {%- set get_pip_dir = salt.temp.dir(prefix='get-pip-') %}
-#{%- set get_pip_path = (get_pip_dir | path_join('get-pip.py')).replace('\\', '\\\\') %}
-{%- set get_pip_path = 'c:\\get-pip.py' %}
+{%- set get_pip_path = (get_pip_dir | path_join('get-pip.py')).replace('\\', '\\\\') %}
 
 {%- if os_family == 'RedHat' and os_major_release == 6 %}
   {%- set on_redhat_6 = True %}
@@ -94,7 +93,11 @@ download-get-pip:
 {%- if (not on_redhat_6 and not on_ubuntu_14) or (on_windows and pillar.get('py3', False)) %}
 pip3-install:
   cmd.run:
+    {%- if on_windows %}
+    - name: '{{ get_pip3 }} "pip<=9.0.1"'
+    {%- else %}
     - name: {{ get_pip3 }} 'pip<=9.0.1'
+    {%- endif %}
     - cwd: /
     - reload_modules: True
     - onlyif:
