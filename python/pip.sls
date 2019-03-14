@@ -139,9 +139,9 @@ upgrade-installed-pip3:
 pip2-install:
   cmd.run:
     {%- if on_windows %}
-    - name: '{{ get_pip1 }} "pip<=9.0.1"'
+    - name: '{{ get_pip2 }} "pip<=9.0.1"'
     {%- else %}
-    - name: {{ get_pip1 }} 'pip<=9.0.1'
+    - name: {{ get_pip2 }} 'pip<=9.0.1'
     {%- endif %}
     - cwd: /
     - reload_modules: True
