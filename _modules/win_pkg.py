@@ -1,4 +1,6 @@
 ## -*- coding: utf-8 -*-
+def __virtual__():
+    return False
 #'''
 #    win_pkg
 #    ~~~~~~~
