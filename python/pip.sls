@@ -3,7 +3,8 @@
 {%- set os_major_release = salt['grains.get']('osmajorrelease', 0)|int %}
 {%- set os = salt['grains.get']('os', '') %}
 {%- set get_pip_dir = salt.temp.dir(prefix='get-pip-') %}
-{%- set get_pip_path = (get_pip_dir | path_join('get-pip.py')).replace('\\', '\\\\') %}
+#{%- set get_pip_path = (get_pip_dir | path_join('get-pip.py')).replace('\\', '\\\\') %}
+{%- set get_pip_path = 'c:\\get-pip.py' %}
 
 {%- if os_family == 'RedHat' and os_major_release == 6 %}
   {%- set on_redhat_6 = True %}
