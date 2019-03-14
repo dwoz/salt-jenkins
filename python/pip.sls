@@ -72,7 +72,7 @@ include:
 {%- endif %}
   - noop-placeholder {#- Make sure there's at least an entry in this 'include' statement #}
 
-{%- set get_pip2 = '{} {} {}'.format(python2, get_pip_path, force_reinstall) %}
+{%- set get_pip2 = 'cmd.exe /c "{} {} {}"'.format(python2, get_pip_path, force_reinstall) %}
 {%- set get_pip3 = '{} {} {}'.format(python3, get_pip_path, force_reinstall) %}
 
 pip-install:
