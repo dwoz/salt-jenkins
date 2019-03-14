@@ -72,7 +72,7 @@ include:
 {%- endif %}
   - noop-placeholder {#- Make sure there's at least an entry in this 'include' statement #}
 
-{%- set get_pip2 = 'cmd.exe /c "{} {} {}"'.format(python2, get_pip_path, force_reinstall) %}
+{%- set get_pip2 = 'cmd /c "{} {} {} \'pip<=9.0.1\'"'.format(python2, get_pip_path, force_reinstall) %}
 {%- set get_pip3 = '{} {} {}'.format(python3, get_pip_path, force_reinstall) %}
 
 pip-install:
@@ -134,7 +134,7 @@ upgrade-installed-pip3:
 
 pip2-install:
   cmd.run:
-    - name: {{ get_pip2 }} 'pip<=9.0.1'
+    - name: {{ get_pip2 }}
     - cwd: /
     - reload_modules: True
 #    - onlyif:
