@@ -7,7 +7,9 @@
 {%- else %}
   {%- set git = 'git' %}
 {%- endif %}
-{%- set git_binary = 'git' | which %}
+
+#{%- set git_binary = 'git' | which %}
+{%- set git_binary = False %}
 
 force-sync-all:
   module.run:
@@ -17,9 +19,6 @@ force-sync-all:
 
 {%- if grains['os_family'] == 'Windows' %}
   {%- if not git_binary %}
-include:
-  - windeps
-  - python.pip
 
 #git-exists-in-path:
 #  win_path.exists:
