@@ -138,19 +138,23 @@ upgrade-installed-pip3:
 
 pip2-install:
   cmd.run:
-    - name: '{{ get_pip2 }} "pip<=9.0.1"'
+    {%- if on_windows %}
+    - name: '{{ get_pip1 }} "pip<=9.0.1"'
+    {%- else %}
+    - name: {{ get_pip1 }} 'pip<=9.0.1'
+    {%- endif %}
     - cwd: /
     - reload_modules: True
-#    - onlyif:
-#      {%- if on_windows %}
-#      - 'if (py.exe -2 -c "import sys; print(sys.executable)") { exit 0 } else { exit 1 }'
-#      - 'if (get-command pip2) { exit 1 } else { exit 0 }'
-#      {%- else %}
-#      - '[ "$(which {{ python2 }} 2>/dev/null)" != "" ]'
-#        {%- if os != 'Fedora' %}
-#      - '[ "$(which {{ pip2 }} 2>/dev/null)" = "" ]'
-#        {%- endif %}
-#      {%- endif %}
+    - onlyif:
+      {%- if on_windows %}
+      - 'if (py.exe -2 -c "import sys; print(sys.executable)") { exit 0 } else { exit 1 }'
+      - 'if (get-command pip2) { exit 1 } else { exit 0 }'
+      {%- else %}
+      - '[ "$(which {{ python2 }} 2>/dev/null)" != "" ]'
+        {%- if os != 'Fedora' %}
+      - '[ "$(which {{ pip2 }} 2>/dev/null)" = "" ]'
+        {%- endif %}
+      {%- endif %}
     - require:
       - download-get-pip
     {%- if on_windows and not pillar.get('py3', False) %}
