@@ -51,9 +51,9 @@ include:
   {%- if grains.get('kernel') == 'Linux' %}
   - man
   {%- endif %}
-  {% if os_family == 'Windows' %}
-  - windeps
-  {% endif %}
+#  {% if os_family == 'Windows' %}
+#  - windeps
+#  {% endif %}
   - python.setuptools
   - python.more-itertools
   {%- if grains['os'] == 'MacOS' %}
