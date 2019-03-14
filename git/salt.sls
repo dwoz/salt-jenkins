@@ -19,12 +19,12 @@
   {%- set testing_dir = '/testing' %}
 {%- endif %}
 
-{%- if os_family == 'Windows' %}
-stop-minion:
-  service.dead:
-    - name: salt-minion
-    - enable: False
-{%- endif %}
+#{%- if os_family == 'Windows' %}
+#stop-minion:
+#  service.dead:
+#    - name: salt-minion
+#    - enable: False
+#{%- endif %}
 
 {%- if os_family == 'Arch' %}
   {%- set on_arch = True %}
@@ -51,6 +51,9 @@ include:
   {%- if grains.get('kernel') == 'Linux' %}
   - man
   {%- endif %}
+  {% if os_family == 'Windows' %}
+  - windeps
+  {% endif %}
   - python.setuptools
   - python.more-itertools
   {%- if grains['os'] == 'MacOS' %}
