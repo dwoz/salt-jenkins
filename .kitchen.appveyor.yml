@@ -1,5 +1,4 @@
 ---
-<% @version = '2017.7.8' %>
 driver:
   name: proxy
   host: localhost
@@ -13,7 +12,7 @@ provisioner:
   salt_install: bootstrap
   salt_version: latest
   salt_bootstrap_url: https://raw.githubusercontent.com/saltstack/salt-bootstrap/develop/bootstrap-salt.ps1
-  salt_bootstrap_options: -X -p rsync git v<%= version %>
+  salt_bootstrap_options: -X -p rsync git v2017.7.8
   salt_version: 2017.7.4
   sudo: true
   require_chef: false
