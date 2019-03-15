@@ -106,7 +106,8 @@ def get_pip_bin(bin_env, pip_bin_name=None):
         return _list_or_not(which_result)
 
     if bin_env.lower().find('python.exe') != -1:
-        bin_env = os.path.dirname(bin_env)
+        if bin_env.lower().find('salt') == -1:
+            bin_env = os.path.dirname(bin_env)
     # try to get pip bin from virtualenv, bin_env
     if os.path.isdir(bin_env):
         log.debug('bin_env is a directory')
