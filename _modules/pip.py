@@ -182,10 +182,8 @@ def list_(prefix=None,
           **kwargs):
     log.error('custom pip module // pip.list called // kwargs: %r %r', bin_env, kwargs)
     pip_binary = get_pip_bin(bin_env)
-    #if isinstance(pip_binary, list):
-    #    pip_binary = pip_binary[0]
-        #if isinstance(pip_binary, list):
-        #    pip_binary = pip_binary[0]
+    if isinstance(pip_binary, list):
+        pip_binary = pip_binary[0]
     bin_env = pip_binary
     if cwd is None:
         if is_windows():
@@ -222,7 +220,10 @@ def freeze(bin_env=None,
     if cwd is None:
         if is_windows():
             # On windows, the cwd must the same directory as the pip executable
-            cwd = os.path.dirname(pip_binary)
+            if isinstance(pip_binary, list):
+                cwd = os.path.dirname(pip_binary[0])
+            else:
+                cwd = os.path.dirname(pip_binary)
         else:
             cwd = '/'
     cache_pip_version(pip_binary, cwd)
