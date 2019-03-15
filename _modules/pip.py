@@ -116,6 +116,8 @@ def get_pip_bin(bin_env, pip_bin_name=None):
     # try to get pip bin from virtualenv, bin_env
     if isinstance(bin_env, list):
         check_dir = bin_env[0]
+    else:
+        check_dir = bin_env
     if os.path.isdir(check_dir):
         log.error('gp - bin_env is a directory')
         if is_windows():
