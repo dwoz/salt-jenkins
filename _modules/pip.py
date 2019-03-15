@@ -132,7 +132,7 @@ def get_pip_bin(bin_env, pip_bin_name=None):
     else:
         pip_bin = bin_env
     # bin_env is the pip binary
-    elif os.access(pip_bin, os.X_OK):
+    if os.access(pip_bin, os.X_OK):
         log.error('gp - bin_env(%s) is not a direactory', bin_env)
         if os.path.isfile(pip_bin) or os.path.islink(pip_bin):
             log.error('gp - bin_env(%s) exists, returning it', bin_env)
