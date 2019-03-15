@@ -145,16 +145,16 @@ pip2-install:
     {%- endif %}
     - cwd: /
     - reload_modules: True
-    - onlyif:
-      {%- if on_windows %}
-      - 'if (py.exe -2 -c "import sys; print(sys.executable)") { exit 0 } else { exit 1 }'
-      - 'if (get-command pip2) { exit 1 } else { exit 0 }'
-      {%- else %}
-      - '[ "$(which {{ python2 }} 2>/dev/null)" != "" ]'
-        {%- if os != 'Fedora' %}
-      - '[ "$(which {{ pip2 }} 2>/dev/null)" = "" ]'
-        {%- endif %}
-      {%- endif %}
+#    - onlyif:
+#      {%- if on_windows %}
+#      - 'if (py.exe -2 -c "import sys; print(sys.executable)") { exit 0 } else { exit 1 }'
+#      - 'if (get-command pip2) { exit 1 } else { exit 0 }'
+#      {%- else %}
+#      - '[ "$(which {{ python2 }} 2>/dev/null)" != "" ]'
+#        {%- if os != 'Fedora' %}
+#      - '[ "$(which {{ pip2 }} 2>/dev/null)" = "" ]'
+#        {%- endif %}
+#      {%- endif %}
     - require:
       - download-get-pip
     {%- if on_windows and not pillar.get('py3', False) %}
