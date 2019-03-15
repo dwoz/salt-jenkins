@@ -70,8 +70,8 @@ def _list_or_not(ret):
     Caused by this PR #47196
     '''
     _version = __grains__['saltversion']
-    #if (LooseVersion(_version) >= LooseVersion('2017.7.6') and _version != '2018.3.0') or 'n/a' in _version:
-    #    return [ret]
+    if (LooseVersion(_version) >= LooseVersion('2017.7.6') and _version != '2018.3.0') or 'n/a' in _version:
+        return [ret]
     return ret
 
 
