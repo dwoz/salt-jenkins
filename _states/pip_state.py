@@ -103,10 +103,9 @@ def removed(name, **kwargs):
     log.warning('pip binary found: %s', bin_env)
     kwargs.setdefault('cwd', __salt__['config.get']('pip_cwd', None))
     kwargs.update(
-        extra_index_url=extra_index_url,
         bin_env=bin_env)
     kwargs = clean_kwargs(**kwargs)
-    return pip_state_installed(name, **kwargs)
+    return pip_state_removed(name, **kwargs)
 
 def installed(name, **kwargs):
     index_url = kwargs.pop('index_url', None)
