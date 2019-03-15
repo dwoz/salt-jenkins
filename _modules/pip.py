@@ -39,7 +39,7 @@ import salt.ext.six as six
 
 # Let's namespace the pip_install function
 pip_install = namespaced_function(pip_install, globals())  # pylint: disable=invalid-name
-pip_freeze = namespaced_function(pip_freeze, globals())  # pylint: disable=invalid-name
+_pip_freeze = namespaced_function(pip_freeze, globals())  # pylint: disable=invalid-name
 pip_list = namespaced_function(pip_list, globals())  # pylint: disable=invalid-name
 __get_pip_bin = namespaced_function(__get_pip_bin, globals())
 
@@ -61,6 +61,11 @@ __func_alias__ = {
 
 def __virtual__():
     return True
+
+
+def pip_freeze(*args, **kwargs):
+    log.error("Pip Freeze %s", '\n'.join(traceback.format_stack()))
+    return _pip_freeze(*args, **kwargs)
 
 
 def _list_or_not(ret):
