@@ -77,7 +77,8 @@ def _list_or_not(ret):
     '''
     _version = __grains__['saltversion']
     if (LooseVersion(_version) >= LooseVersion('2017.7.6') and _version != '2018.3.0') or 'n/a' in _version:
-        return [ret]
+        if not isinstance(ret, list):
+            return [ret]
     return ret
 
 
@@ -87,8 +88,6 @@ def get_pip_bin(bin_env, pip_bin_name=None):
     executable itself, or from searching conventional filesystem locations
     '''
     log.error('gp - Calling get_pip_bin on custom pip moule. bin_env: %s, pip_bin_name: %s', bin_env, pip_bin_name)
-    if isinstance(bin_env, list):
-        bin_env = bin_env[0]
     if pip_bin_name is None:
         # Always use pip3 if running with pillar="{py3: true}"
         # If running tests on CentOS 6, the Nitrogen and Develop branches run on Python2.7
@@ -115,12 +114,14 @@ def get_pip_bin(bin_env, pip_bin_name=None):
     #    if bin_env.lower().find('salt') == -1:
     #        bin_env = os.path.dirname(bin_env)
     # try to get pip bin from virtualenv, bin_env
-    if os.path.isdir(bin_env):
+    if isinstance(bin_env, list):
+        check_dir = bin_env[0]
+    if os.path.isdir(check_dir):
         log.error('gp - bin_env is a directory')
         if is_windows():
-            pip_bin = os.path.join(bin_env, 'Scripts', 'pip.exe')
+            pip_bin = os.path.join(check_dir, 'Scripts', 'pip.exe')
         else:
-            pip_bin = os.path.join(bin_env, 'bin', pip_bin_name)
+            pip_bin = os.path.join(check_dir, 'bin', pip_bin_name)
         log.error('gp - resolved pip_bin: %s', pip_bin)
         if os.path.isfile(pip_bin):
             log.debug('gp - Returning pip_bin executable: %s', pip_bin)
@@ -128,10 +129,12 @@ def get_pip_bin(bin_env, pip_bin_name=None):
             return _list_or_not(pip_bin)
         msg = 'Could not find a `pip` binary in virtualenv {0}'.format(bin_env)
         raise CommandNotFoundError(msg)
+    else:
+        pip_bin = bin_env
     # bin_env is the pip binary
-    elif os.access(bin_env, os.X_OK):
+    elif os.access(pip_bin, os.X_OK):
         log.error('gp - bin_env(%s) is not a direactory', bin_env)
-        if os.path.isfile(bin_env) or os.path.islink(bin_env):
+        if os.path.isfile(pip_bin) or os.path.islink(pip_bin):
             log.error('gp - bin_env(%s) exists, returning it', bin_env)
             cache_pip_version(bin_env)
             return _list_or_not(bin_env)
