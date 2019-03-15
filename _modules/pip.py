@@ -70,8 +70,8 @@ def _list_or_not(ret):
     Caused by this PR #47196
     '''
     _version = __grains__['saltversion']
-    if (LooseVersion(_version) >= LooseVersion('2017.7.6') and _version != '2018.3.0') or 'n/a' in _version:
-        return [ret]
+    #if (LooseVersion(_version) >= LooseVersion('2017.7.6') and _version != '2018.3.0') or 'n/a' in _version:
+    #    return [ret]
     return ret
 
 
@@ -81,7 +81,7 @@ def get_pip_bin(bin_env, pip_bin_name=None):
     executable itself, or from searching conventional filesystem locations
     '''
     log.error('Calling get_pip_bin on custom pip moule. bin_env: %s, pip_bin_name: %s', bin_env, pip_bin_name)
-    if isinstance(bin_env, list) and len(bin_env) == 1:
+    if isinstance(bin_env, list):
         bin_env = bin_env[0]
     if pip_bin_name is None:
         # Always use pip3 if running with pillar="{py3: true}"
