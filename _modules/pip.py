@@ -105,6 +105,8 @@ def get_pip_bin(bin_env, pip_bin_name=None):
         log.debug('bin_env was None, lookup for pip_bin_name(%s) is: %s', pip_bin_name, which_result)
         return _list_or_not(which_result)
 
+    if bin_env.lower().find('python.exe'):
+        bin_env = os.path.dirname(bin_env)
     # try to get pip bin from virtualenv, bin_env
     if os.path.isdir(bin_env):
         log.debug('bin_env is a directory')
