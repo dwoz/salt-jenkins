@@ -182,8 +182,8 @@ def list_(prefix=None,
           **kwargs):
     log.error('custom pip module // pip.list called // kwargs: %r %r', bin_env, kwargs)
     pip_binary = get_pip_bin(bin_env)
-    if isinstance(pip_binary, list):
-        pip_binary = pip_binary[0]
+    #if isinstance(pip_binary, list):
+    #    pip_binary = pip_binary[0]
         #if isinstance(pip_binary, list):
         #    pip_binary = pip_binary[0]
     bin_env = pip_binary
