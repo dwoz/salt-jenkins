@@ -38,6 +38,10 @@ provisioner:
     - .travis.yml
   state_top:
     base:
+      "os:Windows":
+        - match: grain
+        - windeps
+        - python.pip
       "*":
         - git.salt
 
