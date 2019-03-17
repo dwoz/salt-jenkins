@@ -57,6 +57,19 @@
   {%- set python3 = 'python3' %}
 {%- endif %}
 
+
+{%- if (not on_redhat_6 and not on_ubuntu_14 and not on_windows) or (on_windows and pillar.get('py3', False)) %}
+  {%- set install_pip3 = True %}
+{%- else %}
+  {%- set install_pip3 = False %}
+{%- endif %}
+
+{%- if not on_windows or (on_windows and pillar.get('py3', False) == False) %}
+  {%- set install_pip2 = True %}
+{%- else %}
+  {%- set install_pip2 = False %}
+{%- endif %}
+
 include:
 {%- if pillar.get('py3', False) %}
 {%- if not on_redhat_6 and not on_ubuntu_14 %}
@@ -79,10 +92,10 @@ pip-install:
   cmd.run:
     - name: 'echo "Place holder for pip2 and pip3 installs"'
     - require:
-      {%- if on_windows and pillar.get('py3', False) == False %}
+      {%- if install_pip2 %}
       - cmd: pip2-install
       {%- endif %}
-      {%- if (not on_redhat_6 and not on_ubuntu_14) and (on_windows and pillar.get('py3', False)) %}
+      {%- if install_pip3 %}
       - cmd: pip3-install
       {%- endif %}
 
@@ -92,7 +105,7 @@ download-get-pip:
     - source: https://github.com/pypa/get-pip/raw/b3d0f6c0faa8e02322efb00715f8460965eb5d5f/get-pip.py
     - skip_verify: true
 
-{%- if (not on_redhat_6 and not on_ubuntu_14) and (on_windows and pillar.get('py3', False)) %}
+{%- if install_pip3 %}
 pip3-install:
   cmd.run:
     {%- if on_windows %}
@@ -138,7 +151,7 @@ upgrade-installed-pip3:
       - cmd: pip3-install
 {%- endif %}
 
-{%- if on_windows and pillar.get('py3', False) == False %}
+{%- if install_pip2 %}
 pip2-install:
   cmd.run:
     {%- if on_windows %}
