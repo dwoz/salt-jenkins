@@ -10,8 +10,9 @@ include:
   - windows.git
   - windows.nsis
   - windows.dlls
-#  - windows.envvars
+  - windows.envvars
   - windows.compiler
+  - windows.pywin32
 
 stop-minion:
   service.dead:
