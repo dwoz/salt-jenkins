@@ -7,6 +7,7 @@ include:
   {%- else %}
   - python27
   {%- endif %}
+  - windows.git
   - windows.nsis
   - windows.dlls
   - windows.envvars
