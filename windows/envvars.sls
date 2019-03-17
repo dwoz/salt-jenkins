@@ -11,7 +11,7 @@ include:
 update-env-vars:
   environ.setenv:
     - name: PATH
-    - value: "{{ scripts_dir }};$Path"
+    - value: '"{{ scripts_dir }};$Path"'
     - permanent: true
     - order: 2
     - require:
