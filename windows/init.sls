@@ -10,7 +10,7 @@ include:
   - windows.git
   - windows.nsis
   - windows.dlls
-  - windows.envvars
+#  - windows.envvars
   - windows.compiler
 
 stop-minion:
