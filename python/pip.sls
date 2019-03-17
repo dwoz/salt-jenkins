@@ -79,8 +79,10 @@ pip-install:
   cmd.run:
     - name: 'echo "Place holder for pip2 and pip3 installs"'
     - require:
+      {%- if on_windows and pillar.get('py3', False) == False %}
       - cmd: pip2-install
-      {%- if not on_redhat_6 and not on_ubuntu_14 %}
+      {%- endif %}
+      {%- if (not on_redhat_6 and not on_ubuntu_14) and (on_windows and pillar.get('py3', False)) %}
       - cmd: pip3-install
       {%- endif %}
 
