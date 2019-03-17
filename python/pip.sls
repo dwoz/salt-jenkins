@@ -136,6 +136,7 @@ upgrade-installed-pip3:
       - cmd: pip3-install
 {%- endif %}
 
+{%- if on_windows and pillar.get('py3', False) == False %}
 pip2-install:
   cmd.run:
     {%- if on_windows %}
@@ -177,6 +178,7 @@ upgrade-installed-pip2:
     {%- endif %}
     - require:
       - cmd: pip2-install
+{%- endif %}
 
 ########################################
 #{%- set distro = salt['grains.get']('oscodename', '')  %}
