@@ -90,7 +90,7 @@ download-get-pip:
     - source: https://github.com/pypa/get-pip/raw/b3d0f6c0faa8e02322efb00715f8460965eb5d5f/get-pip.py
     - skip_verify: true
 
-{%- if (not on_redhat_6 and not on_ubuntu_14) or (on_windows and pillar.get('py3', False)) %}
+{%- if (not on_redhat_6 and not on_ubuntu_14) and (on_windows and pillar.get('py3', False)) %}
 pip3-install:
   cmd.run:
     {%- if on_windows %}
