@@ -15,4 +15,3 @@ vcpp-compiler:
     - name: {{ vcpp_compiler }}
     - require:
       - win-pkg-refresh
-    - order: 2
