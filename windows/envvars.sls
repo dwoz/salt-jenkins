@@ -1,5 +1,5 @@
 {%- set salt_dir = salt['config.get']('python_install_dir', 'c:\\salt').rstrip('\\') %}
-{%- set scripts_dir = salt_dir.replace('\\', '\\\\') | path_join('bin', 'Scripts').replace('\\', '\\\\') %}
+{%- set scripts_dir = salt_dir| path_join('bin', 'Scripts') %}
 
 include:
   {%- if salt['config.get']('py3', False) %}
@@ -11,7 +11,7 @@ include:
 update-env-vars:
   environ.setenv:
     - name: PATH
-    - value: "{{ scripts_dir }};$env:Path"
+    - value: "{{ scripts_dir.replace('\\', '\\\\') }};$env:Path"
     - permanent: true
     - order: 2
     - require:
