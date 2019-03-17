@@ -8,19 +8,6 @@ include:
     - python27
   {%- endif %}
 
-#update-env-vars:
-#  environ.setenv:
-#    - name: PATH
-#    - value: "{{ scripts_dir.replace('\\', '\\\\') }};$env:Path"
-#    - permanent: true
-#    - order: 2
-#    - require:
-#    {%- if salt['config.get']('py3', False) %}
-#      - python3
-#    {%- else %}
-#      - python2
-#    {%- endif %}
-
 update-env-vars:
   win_path.exists:
     - name: '{{ scripts_dir }}'
