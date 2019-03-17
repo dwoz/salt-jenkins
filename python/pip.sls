@@ -136,7 +136,6 @@ upgrade-installed-pip3:
       - cmd: pip3-install
 {%- endif %}
 
-{%- if salt['file.file_exists' ](python2) %}
 pip2-install:
   cmd.run:
     {%- if on_windows %}
@@ -178,7 +177,6 @@ upgrade-installed-pip2:
     {%- endif %}
     - require:
       - cmd: pip2-install
-{%- endif %}
 
 ########################################
 #{%- set distro = salt['grains.get']('oscodename', '')  %}
